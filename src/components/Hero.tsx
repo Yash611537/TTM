@@ -1,17 +1,56 @@
 import { ArrowRight, Play } from 'lucide-react';
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useScrollAnimation } from '../hooks/useScrollAnimation';
 
 export default function Hero() {
   const [isHovered, setIsHovered] = useState(false);
   const headingRef = useScrollAnimation();
+  const h1Ref = useScrollAnimation();
+  const pRef = useScrollAnimation();
   const ctaRef = useScrollAnimation();
   const statsRef = useScrollAnimation();
   const mockupRef = useScrollAnimation();
 
+  const sectionRef = useRef<HTMLElement>(null);
+  const bgRef = useRef<HTMLDivElement>(null);
+  const deviceRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const onScroll = () => {
+      const section = sectionRef.current;
+      const bg = bgRef.current;
+      const device = deviceRef.current;
+      if (!section) return;
+      const rect = section.getBoundingClientRect();
+      const vh = window.innerHeight || 1;
+      const total = rect.height + vh;
+      const visible = Math.min(total, Math.max(0, vh - rect.top));
+      const p = Math.max(0, Math.min(1, visible / total));
+      if (bg) {
+        const bgTranslate = 30 * p;
+        const bgOpacity = 0.35 + 0.15 * p;
+        bg.style.transform = `translateY(${bgTranslate}px)`;
+        bg.style.opacity = String(bgOpacity);
+      }
+      if (device) {
+        const scale = 1.02 + 0.06 * p;
+        const ty = -20 * p;
+        const tx = 8 * p;
+        device.style.transform = `translate3d(${tx}px, ${ty}px, 0) scale(${scale})`;
+      }
+    };
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll);
+    return () => {
+      window.removeEventListener('scroll', onScroll);
+      window.removeEventListener('resize', onScroll);
+    };
+  }, []);
+
   return (
-    <section className="relative min-h-screen bg-gradient-to-br from-[#003366] via-[#004d99] to-[#0066cc] overflow-hidden">
-      <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PHBhdHRlcm4gaWQ9ImdyaWQiIHdpZHRoPSI2MCIgaGVpZ2h0PSI2MCIgcGF0dGVyblVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+PHBhdGggZD0iTSAxMCAwIEwgMCAwIDAgMTAiIGZpbGw9Im5vbmUiIHN0cm9rZT0icmdiYSgyNTUsMjU1LDI1NSwwLjA1KSIgc3Ryb2tlLXdpZHRoPSIxIi8+PC9wYXR0ZXJuPjwvZGVmcz48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSJ1cmwoI2dyaWQpIi8+PC9zdmc+')] opacity-40"></div>
+    <section ref={sectionRef} className="relative min-h-screen bg-gradient-to-br from-[#003366] via-[#004d99] to-[#0066cc] overflow-hidden">
+      <div ref={bgRef} style={{ willChange: 'transform, opacity' }} className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PHBhdHRlcm4gaWQ9ImdyaWQiIHdpZHRoPSI2MCIgaGVpZ2h0PSI2MCIgcGF0dGVyblVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+PHBhdGggZD0iTSAxMCAwIEwgMCAwIDAgMTAiIGZpbGw9Im5vbmUiIHN0cm9rZT0icmdiYSgyNTUsMjU1LDI1NSwwLjA1KSIgc3Ryb2tlLXdpZHRoPSIxIi8+PC9wYXR0ZXJuPjwvZGVmcz48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSJ1cmwoI2dyaWQpIi8+PC9zdmc+')] opacity-40"></div>
 
       <nav className="relative z-20 flex items-center justify-between px-6 lg:px-16 py-6">
         <div className="flex items-center space-x-3">
@@ -33,12 +72,12 @@ export default function Hero() {
 
       <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-16 pt-20 pb-32">
         <div className="grid lg:grid-cols-2 gap-16 items-center">
-          <div ref={headingRef} className="space-y-8 animate-slide-up">
+          <div ref={headingRef} className="space-y-8">
             <div className="inline-block px-4 py-2 bg-white/10 backdrop-blur-sm rounded-full text-[#00BFFF] text-sm font-semibold border border-white/20">
               Track. Transport. Manage.
             </div>
 
-            <h1 className="text-5xl lg:text-6xl xl:text-7xl font-bold text-white leading-tight">
+            <h1 ref={h1Ref} className="text-5xl lg:text-6xl xl:text-7xl font-bold text-white leading-tight animate-slide-up stagger-1">
               Smarter Fleet Management.{" "}
               <span className="text-[#00BFFF]">Real-Time.</span>{" "}
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00BFFF] to-[#00FFFF]">
@@ -46,11 +85,11 @@ export default function Hero() {
               </span>
             </h1>
 
-            <p className="text-xl text-white/80 leading-relaxed max-w-xl">
+            <p ref={pRef} className="text-xl text-white/80 leading-relaxed max-w-xl animate-slide-up stagger-2">
               Optimize operations, track vehicles live, and improve driver safety — all in one powerful dashboard.
             </p>
 
-            <div ref={ctaRef} className="flex flex-col sm:flex-row gap-4 pt-4 animate-scale-in">
+            <div ref={ctaRef} className="flex flex-col sm:flex-row gap-4 pt-4 animate-scale-in stagger-3">
               <button
                 className="group px-8 py-4 bg-[#00BFFF] text-white rounded-lg font-semibold hover:bg-[#00a8e8] transition-all duration-300 shadow-xl hover:shadow-2xl flex items-center justify-center space-x-2"
                 onMouseEnter={() => setIsHovered(true)}
@@ -86,7 +125,7 @@ export default function Hero() {
 
           <div ref={mockupRef} className="relative lg:block hidden animate-slide-left">
             <div className="absolute inset-0 bg-gradient-to-tr from-[#00BFFF]/20 to-transparent rounded-3xl blur-3xl"></div>
-            <div className="relative bg-white/10 backdrop-blur-lg rounded-2xl border border-white/20 p-6 shadow-2xl">
+            <div ref={deviceRef} style={{ willChange: 'transform' }} className="relative bg-white/10 backdrop-blur-lg rounded-2xl border border-white/20 p-6 shadow-2xl">
               <div className="bg-gradient-to-br from-[#F5F8FA] to-white rounded-xl p-6 shadow-xl">
                 <div className="flex items-center justify-between mb-6">
                   <div className="flex items-center space-x-3">
