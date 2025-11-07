@@ -1,5 +1,6 @@
 import { Clock, DollarSign, Shield, BarChart3 } from 'lucide-react';
 import { useScrollAnimation } from '../hooks/useScrollAnimation';
+import { motion } from 'framer-motion';
 
 const benefits = [
   {
@@ -37,7 +38,14 @@ export default function Benefits() {
     <section id="benefits" className="py-24 bg-white">
       <div className="max-w-7xl mx-auto px-6 lg:px-16">
         <div className="grid lg:grid-cols-2 gap-16 items-center mb-24">
-          <div ref={contentRef} className="animate-slide-right space-y-6">
+          <motion.div
+            ref={contentRef}
+            className="space-y-6"
+            initial={{ opacity: 0, x: -24 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, amount: 0.3 }}
+            transition={{ duration: 0.6, ease: 'easeOut' }}
+          >
             <div className="inline-block px-4 py-2 bg-[#00BFFF]/10 rounded-full text-[#003366] text-sm font-semibold">
               Proven Results
             </div>
@@ -79,18 +87,29 @@ export default function Benefits() {
                 <p className="text-gray-700">Enterprise-grade security with 99.9% uptime guarantee</p>
               </div>
             </div>
-          </div>
+          </motion.div>
 
-          <div ref={imageRef} className="animate-slide-left relative">
+          <motion.div
+            ref={imageRef}
+            className="relative"
+            initial={{ opacity: 0, x: 24 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, amount: 0.3 }}
+            transition={{ duration: 0.6, ease: 'easeOut' }}
+          >
             <div className="absolute inset-0 bg-gradient-to-br from-[#00BFFF]/20 to-[#003366]/20 rounded-3xl blur-3xl"></div>
             <div className="relative bg-gradient-to-br from-[#F5F8FA] to-white rounded-2xl p-8 shadow-2xl border border-gray-100">
               <div className="grid grid-cols-2 gap-6">
                 {benefits.map((benefit, index) => {
                   const Icon = benefit.icon;
                   return (
-                    <div
+                    <motion.div
                       key={index}
                       className="bg-white rounded-xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 border border-gray-100"
+                      initial={{ opacity: 0, y: 16 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      viewport={{ once: true, amount: 0.2 }}
+                      transition={{ duration: 0.45, ease: 'easeOut', delay: index * 0.05 }}
                     >
                       <Icon className="w-8 h-8 text-[#00BFFF] mb-4" />
                       <div className="text-3xl font-bold text-[#003366] mb-2">
@@ -102,12 +121,18 @@ export default function Benefits() {
                       <div className="text-xs text-gray-500">
                         {benefit.description}
                       </div>
-                    </div>
+                    </motion.div>
                   );
                 })}
               </div>
 
-              <div className="mt-8 p-6 bg-gradient-to-r from-[#003366] to-[#0066cc] rounded-xl text-white">
+              <motion.div
+                className="mt-8 p-6 bg-gradient-to-r from-[#003366] to-[#0066cc] rounded-xl text-white"
+                initial={{ opacity: 0, scale: 0.98 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true, amount: 0.3 }}
+                transition={{ duration: 0.5, ease: 'easeOut' }}
+              >
                 <div className="flex items-center justify-between">
                   <div>
                     <div className="text-sm opacity-90 mb-1">Average ROI</div>
@@ -120,9 +145,9 @@ export default function Benefits() {
                     </svg>
                   </div>
                 </div>
-              </div>
+              </motion.div>
             </div>
-          </div>
+          </motion.div>
         </div>
 
         <div className="bg-gradient-to-br from-[#F5F8FA] to-white rounded-3xl p-12 border border-gray-100">

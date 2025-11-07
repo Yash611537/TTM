@@ -1,6 +1,7 @@
 import { MapPin, TrendingUp, Wrench, Route } from 'lucide-react';
 import { useState } from 'react';
 import { useScrollAnimation } from '../hooks/useScrollAnimation';
+import { motion } from 'framer-motion';
 
 const features = [
   {
@@ -38,7 +39,14 @@ export default function Features() {
   return (
     <section id="features" className="py-24 bg-gradient-to-b from-white to-[#F5F8FA]">
       <div className="max-w-7xl mx-auto px-6 lg:px-16">
-        <div ref={headingRef} className="animate-slide-up text-center mb-16 space-y-4">
+        <motion.div
+          ref={headingRef}
+          className="text-center mb-16 space-y-4"
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.3 }}
+          transition={{ duration: 0.6, ease: 'easeOut' }}
+        >
           <div className="inline-block px-4 py-2 bg-[#00BFFF]/10 rounded-full text-[#003366] text-sm font-semibold">
             Powerful Features
           </div>
@@ -51,7 +59,7 @@ export default function Features() {
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
             Comprehensive tools designed to give you complete visibility and control over your operations
           </p>
-        </div>
+        </motion.div>
 
         <div ref={cardsRef} className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
           {features.map((feature, index) => {
@@ -59,11 +67,15 @@ export default function Features() {
             const isHovered = hoveredIndex === index;
 
             return (
-              <div
+              <motion.div
                 key={index}
-                className={`animate-slide-up stagger-${(index % 5) + 1} group relative bg-white rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all duration-500 border border-gray-100 hover:border-[#00BFFF]/30 cursor-pointer`}
+                className={`group relative bg-white rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all duration-500 border border-gray-100 hover:border-[#00BFFF]/30 cursor-pointer`}
                 onMouseEnter={() => setHoveredIndex(index)}
                 onMouseLeave={() => setHoveredIndex(null)}
+                initial={{ opacity: 0, y: 24 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.2 }}
+                transition={{ duration: 0.5, ease: 'easeOut', delay: index * 0.06 }}
               >
                 <div className="absolute inset-0 bg-gradient-to-br from-[#00BFFF]/0 to-[#003366]/0 group-hover:from-[#00BFFF]/5 group-hover:to-[#003366]/5 rounded-2xl transition-all duration-500"></div>
 
@@ -87,12 +99,19 @@ export default function Features() {
                     </svg>
                   </div>
                 </div>
-              </div>
+              </motion.div>
             );
           })}
         </div>
 
-        <div ref={ctaRef} className="animate-scale-in mt-20 bg-gradient-to-br from-[#003366] to-[#0066cc] rounded-3xl p-12 relative overflow-hidden">
+        <motion.div
+          ref={ctaRef}
+          className="mt-20 bg-gradient-to-br from-[#003366] to-[#0066cc] rounded-3xl p-12 relative overflow-hidden"
+          initial={{ opacity: 0, scale: 0.98 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          viewport={{ once: true, amount: 0.3 }}
+          transition={{ duration: 0.6, ease: 'easeOut' }}
+        >
           <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PHBhdHRlcm4gaWQ9ImdyaWQiIHdpZHRoPSI2MCIgaGVpZ2h0PSI2MCIgcGF0dGVyblVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+PHBhdGggZD0iTSAxMCAwIEwgMCAwIDAgMTAiIGZpbGw9Im5vbmUiIHN0cm9rZT0icmdiYSgyNTUsMjU1LDI1NSwwLjA1KSIgc3Ryb2tlLXdpZHRoPSIxIi8+PC9wYXR0ZXJuPjwvZGVmcz48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSJ1cmwoI2dyaWQpIi8+PC9zdmc+')] opacity-20"></div>
 
           <div className="relative z-10 text-center space-y-6">
@@ -106,7 +125,7 @@ export default function Features() {
               Start Free Trial
             </button>
           </div>
-        </div>
+        </motion.div>
       </div>
     </section>
   );

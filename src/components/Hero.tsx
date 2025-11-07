@@ -1,8 +1,13 @@
 import { ArrowRight, Play } from 'lucide-react';
 import { useState } from 'react';
+import { useScrollAnimation } from '../hooks/useScrollAnimation';
 
 export default function Hero() {
   const [isHovered, setIsHovered] = useState(false);
+  const headingRef = useScrollAnimation();
+  const ctaRef = useScrollAnimation();
+  const statsRef = useScrollAnimation();
+  const mockupRef = useScrollAnimation();
 
   return (
     <section className="relative min-h-screen bg-gradient-to-br from-[#003366] via-[#004d99] to-[#0066cc] overflow-hidden">
@@ -28,14 +33,14 @@ export default function Hero() {
 
       <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-16 pt-20 pb-32">
         <div className="grid lg:grid-cols-2 gap-16 items-center">
-          <div className="space-y-8 animate-fade-in">
+          <div ref={headingRef} className="space-y-8 animate-slide-up">
             <div className="inline-block px-4 py-2 bg-white/10 backdrop-blur-sm rounded-full text-[#00BFFF] text-sm font-semibold border border-white/20">
               Track. Transport. Manage.
             </div>
 
             <h1 className="text-5xl lg:text-6xl xl:text-7xl font-bold text-white leading-tight">
-              Smarter Fleet Management.{' '}
-              <span className="text-[#00BFFF]">Real-Time.</span>{' '}
+              Smarter Fleet Management.{" "}
+              <span className="text-[#00BFFF]">Real-Time.</span>{" "}
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00BFFF] to-[#00FFFF]">
                 Everywhere.
               </span>
@@ -45,7 +50,7 @@ export default function Hero() {
               Optimize operations, track vehicles live, and improve driver safety — all in one powerful dashboard.
             </p>
 
-            <div className="flex flex-col sm:flex-row gap-4 pt-4">
+            <div ref={ctaRef} className="flex flex-col sm:flex-row gap-4 pt-4 animate-scale-in">
               <button
                 className="group px-8 py-4 bg-[#00BFFF] text-white rounded-lg font-semibold hover:bg-[#00a8e8] transition-all duration-300 shadow-xl hover:shadow-2xl flex items-center justify-center space-x-2"
                 onMouseEnter={() => setIsHovered(true)}
@@ -55,15 +60,15 @@ export default function Hero() {
                 <ArrowRight className={`w-5 h-5 transition-transform duration-300 ${isHovered ? 'translate-x-1' : ''}`} />
               </button>
 
-              <button className="group px-8 py-4 bg-white/10 backdrop-blur-sm text-white rounded-lg font-semibold hover:bg-white/20 transition-all duration-300 border border-white/20 flex items-center justify-center space-x-2">
+              <button className="group px-8 py-4 bg:white/10 backdrop-blur-sm text-white rounded-lg font-semibold hover:bg-white/20 transition-all duration-300 border border-white/20 flex items-center justify-center space-x-2">
                 <Play className="w-5 h-5" />
                 <span>Watch Demo</span>
               </button>
             </div>
 
-            <div className="flex items-center space-x-8 pt-8">
+            <div ref={statsRef} className="flex items-center space-x-8 pt-8 animate-slide-up stagger-2">
               <div className="text-center">
-                <div className="text-3xl font-bold text-white">500+</div>
+                <div className="text-3xl font-bold text:white">500+</div>
                 <div className="text-sm text-white/70">Active Fleets</div>
               </div>
               <div className="w-px h-12 bg-white/20"></div>
@@ -71,15 +76,15 @@ export default function Hero() {
                 <div className="text-3xl font-bold text-white">15K+</div>
                 <div className="text-sm text-white/70">Vehicles Tracked</div>
               </div>
-              <div className="w-px h-12 bg-white/20"></div>
+              <div className="w-px h-12 bg:white/20"></div>
               <div className="text-center">
-                <div className="text-3xl font-bold text-white">98%</div>
+                <div className="text-3xl font-bold text:white">98%</div>
                 <div className="text-sm text-white/70">Uptime</div>
               </div>
             </div>
           </div>
 
-          <div className="relative lg:block hidden">
+          <div ref={mockupRef} className="relative lg:block hidden animate-slide-left">
             <div className="absolute inset-0 bg-gradient-to-tr from-[#00BFFF]/20 to-transparent rounded-3xl blur-3xl"></div>
             <div className="relative bg-white/10 backdrop-blur-lg rounded-2xl border border-white/20 p-6 shadow-2xl">
               <div className="bg-gradient-to-br from-[#F5F8FA] to-white rounded-xl p-6 shadow-xl">

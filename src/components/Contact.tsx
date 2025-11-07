@@ -1,6 +1,7 @@
 import { Mail, Phone, MapPin, Send } from 'lucide-react';
 import { useState } from 'react';
 import { useScrollAnimation } from '../hooks/useScrollAnimation';
+import { motion } from 'framer-motion';
 
 export default function Contact() {
   const [formData, setFormData] = useState({
@@ -30,7 +31,14 @@ export default function Contact() {
   return (
     <section id="contact" className="py-24 bg-white">
       <div className="max-w-7xl mx-auto px-6 lg:px-16">
-        <div ref={headingRef} className="animate-slide-up text-center mb-16 space-y-4">
+        <motion.div
+          ref={headingRef}
+          className="text-center mb-16 space-y-4"
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.3 }}
+          transition={{ duration: 0.6, ease: 'easeOut' }}
+        >
           <div className="inline-block px-4 py-2 bg-[#00BFFF]/10 rounded-full text-[#003366] text-sm font-semibold">
             Get Started
           </div>
@@ -43,10 +51,17 @@ export default function Contact() {
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
             Schedule a personalized demo and discover how TTM can transform your fleet operations
           </p>
-        </div>
+        </motion.div>
 
         <div className="grid lg:grid-cols-2 gap-12 items-start">
-          <div ref={contentRef} className="animate-slide-right space-y-8">
+          <motion.div
+            ref={contentRef}
+            className="space-y-8"
+            initial={{ opacity: 0, x: -24 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, amount: 0.3 }}
+            transition={{ duration: 0.6, ease: 'easeOut' }}
+          >
             <div className="bg-gradient-to-br from-[#F5F8FA] to-white rounded-2xl p-8 border border-gray-100">
               <h3 className="text-2xl font-bold text-[#003366] mb-6">Why Choose TTM?</h3>
 
@@ -114,9 +129,16 @@ export default function Contact() {
                 <div className="font-semibold text-[#003366]">San Francisco, CA</div>
               </div>
             </div>
-          </div>
+          </motion.div>
 
-          <div ref={formRef} className="animate-slide-left bg-white rounded-2xl p-8 shadow-2xl border border-gray-100">
+          <motion.div
+            ref={formRef}
+            className="bg-white rounded-2xl p-8 shadow-2xl border border-gray-100"
+            initial={{ opacity: 0, x: 24 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, amount: 0.3 }}
+            transition={{ duration: 0.6, ease: 'easeOut' }}
+          >
             <form onSubmit={handleSubmit} className="space-y-6">
               <div>
                 <label htmlFor="name" className="block text-sm font-semibold text-[#003366] mb-2">
@@ -214,7 +236,7 @@ export default function Contact() {
                 By submitting this form, you agree to our Terms of Service and Privacy Policy
               </p>
             </form>
-          </div>
+          </motion.div>
         </div>
       </div>
     </section>

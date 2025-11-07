@@ -1,5 +1,6 @@
 import { Star, Quote } from 'lucide-react';
 import { useScrollAnimation } from '../hooks/useScrollAnimation';
+import { motion } from 'framer-motion';
 
 const testimonials = [
   {
@@ -33,7 +34,14 @@ export default function Clients() {
   return (
     <section id="clients" className="py-24 bg-gradient-to-b from-white to-[#F5F8FA]">
       <div className="max-w-7xl mx-auto px-6 lg:px-16">
-        <div ref={headingRef} className="animate-slide-up text-center mb-16 space-y-4">
+        <motion.div
+          ref={headingRef}
+          className="text-center mb-16 space-y-4"
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.3 }}
+          transition={{ duration: 0.6, ease: 'easeOut' }}
+        >
           <div className="inline-block px-4 py-2 bg-[#00BFFF]/10 rounded-full text-[#003366] text-sm font-semibold">
             Customer Success Stories
           </div>
@@ -46,13 +54,17 @@ export default function Clients() {
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
             Join thousands of satisfied fleet managers who trust TTM daily
           </p>
-        </div>
+        </motion.div>
 
         <div ref={cardsRef} className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
           {testimonials.map((testimonial, index) => (
-            <div
+            <motion.div
               key={index}
-              className={`animate-slide-up stagger-${(index % 5) + 1} bg-white rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-100 hover:border-[#00BFFF]/30 group`}
+              className={`bg-white rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-100 hover:border-[#00BFFF]/30 group`}
+              initial={{ opacity: 0, y: 24 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.2 }}
+              transition={{ duration: 0.5, ease: 'easeOut', delay: index * 0.07 }}
             >
               <div className="flex items-center justify-between mb-6">
                 <div className="flex items-center space-x-1">
@@ -78,11 +90,18 @@ export default function Clients() {
                   </div>
                 </div>
               </div>
-            </div>
+            </motion.div>
           ))}
         </div>
 
-        <div ref={statsRef} className="animate-scale-in bg-gradient-to-r from-[#003366] to-[#0066cc] rounded-3xl p-12 text-white text-center relative overflow-hidden">
+        <motion.div
+          ref={statsRef}
+          className="bg-gradient-to-r from-[#003366] to-[#0066cc] rounded-3xl p-12 text-white text-center relative overflow-hidden"
+          initial={{ opacity: 0, scale: 0.98 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          viewport={{ once: true, amount: 0.3 }}
+          transition={{ duration: 0.6, ease: 'easeOut' }}
+        >
           <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PHBhdHRlcm4gaWQ9ImdyaWQiIHdpZHRoPSI2MCIgaGVpZ2h0PSI2MCIgcGF0dGVyblVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+PHBhdGggZD0iTSAxMCAwIEwgMCAwIDAgMTAiIGZpbGw9Im5vbmUiIHN0cm9rZT0icmdiYSgyNTUsMjU1LDI1NSwwLjA1KSIgc3Ryb2tlLXdpZHRoPSIxIi8+PC9wYXR0ZXJuPjwvZGVmcz48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSJ1cmwoI2dyaWQpIi8+PC9zdmc+')] opacity-20"></div>
 
           <div className="relative z-10">
@@ -112,7 +131,7 @@ export default function Clients() {
               Experience the difference that industry-leading support and technology can make
             </p>
           </div>
-        </div>
+        </motion.div>
       </div>
     </section>
   );
