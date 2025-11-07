@@ -70,17 +70,6 @@ TTM/
 └─ .env (local only; not committed)
 ```
 
-## Environment Variables (optional Supabase)
-
-If you plan to integrate Supabase, create `.env` and define:
-
-```bash
-VITE_SUPABASE_URL="https://YOUR_PROJECT_ID.supabase.co"
-VITE_SUPABASE_ANON_KEY="YOUR_PUBLIC_ANON_KEY"
-```
-
-Access within the app using `import.meta.env.VITE_SUPABASE_URL` and `import.meta.env.VITE_SUPABASE_ANON_KEY`.
-
 ## Development Notes
 
 - Styling is Tailwind-first. Global animations/utilities live in `src/index.css`.
@@ -106,3 +95,4 @@ Access within the app using `import.meta.env.VITE_SUPABASE_URL` and `import.meta
 ## License
 
 Add your preferred license here (e.g., MIT). If private, clarify usage restrictions.
+
