@@ -70,6 +70,30 @@ export default function Hero() {
         </button>
       </nav>
 
+      {/* Futuristic marquee strip */}
+      <div className="relative z-10 px-6 lg:px-16">
+        <div className="marquee border-y border-white/10 py-2">
+          <div className="marquee-inner gap-8 text-xs tracking-widest uppercase text-white/60">
+            {Array(2).fill(0).map((_, idx) => (
+              <div key={idx} className="flex items-center gap-8 pr-8">
+                <span className="text-[#00FFFF]">●</span>
+                <span>AI Telemetry</span>
+                <span className="text-[#00FFFF]">●</span>
+                <span>Edge Analytics</span>
+                <span className="text-[#00FFFF]">●</span>
+                <span>5G Connectivity</span>
+                <span className="text-[#00FFFF]">●</span>
+                <span>Autonomous Alerts</span>
+                <span className="text-[#00FFFF]">●</span>
+                <span>Predictive Maintenance</span>
+                <span className="text-[#00FFFF]">●</span>
+                <span>Real-time Routing</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
       <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-16 pt-20 pb-32">
         <div className="grid lg:grid-cols-2 gap-16 items-center">
           <div ref={headingRef} className="space-y-8">
@@ -99,7 +123,7 @@ export default function Hero() {
                 <ArrowRight className={`w-5 h-5 transition-transform duration-300 ${isHovered ? 'translate-x-1' : ''}`} />
               </button>
 
-              <button className="group px-8 py-4 bg:white/10 backdrop-blur-sm text-white rounded-lg font-semibold hover:bg-white/20 transition-all duration-300 border border-white/20 flex items-center justify-center space-x-2">
+              <button className="group px-8 py-4 bg-white/10 backdrop-blur-sm text-white rounded-lg font-semibold hover:bg-white/20 transition-all duration-300 border border-white/20 flex items-center justify-center space-x-2">
                 <Play className="w-5 h-5" />
                 <span>Watch Demo</span>
               </button>
@@ -107,7 +131,7 @@ export default function Hero() {
 
             <div ref={statsRef} className="flex items-center space-x-8 pt-8 animate-slide-up stagger-2">
               <div className="text-center">
-                <div className="text-3xl font-bold text:white">500+</div>
+                <div className="text-3xl font-bold text-white">500+</div>
                 <div className="text-sm text-white/70">Active Fleets</div>
               </div>
               <div className="w-px h-12 bg-white/20"></div>
@@ -115,9 +139,9 @@ export default function Hero() {
                 <div className="text-3xl font-bold text-white">15K+</div>
                 <div className="text-sm text-white/70">Vehicles Tracked</div>
               </div>
-              <div className="w-px h-12 bg:white/20"></div>
+              <div className="w-px h-12 bg-white/20"></div>
               <div className="text-center">
-                <div className="text-3xl font-bold text:white">98%</div>
+                <div className="text-3xl font-bold text-white">98%</div>
                 <div className="text-sm text-white/70">Uptime</div>
               </div>
             </div>
@@ -137,6 +161,15 @@ export default function Hero() {
                 </div>
 
                 <div className="space-y-4">
+                  {/* Panning media preview */}
+                  <div className="relative overflow-hidden rounded-lg h-40 bg-black/50 border border-white/10 sweep">
+                    <div className="absolute inset-0 pan-y">
+                      <div className="h-[180%] w-full bg-[linear-gradient(180deg,rgba(0,191,255,0.2)_0%,rgba(0,255,255,0.1)_30%,transparent_60%,rgba(0,191,255,0.15)_100%)]">
+                        <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(0,255,255,0.12),transparent_40%),radial-gradient(circle_at_80%_60%,rgba(0,191,255,0.12),transparent_35%)]"></div>
+                        <div className="absolute inset-0 opacity-20 bg-[url('data:image/svg+xml,%3Csvg width=%2260%22 height=%2260%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cdefs%3E%3Cpattern id=%22g%22 width=%2260%22 height=%2260%22 patternUnits=%22userSpaceOnUse%22%3E%3Cpath d=%22M10 0 L0 0 0 10%22 fill=%22none%22 stroke=%22rgba(255,255,255,0.15)%22 stroke-width=%221%22/%3E%3C/pattern%3E%3C/defs%3E%3Crect width=%22100%25%22 height=%22100%25%22 fill=%22url(%23g)%22 /%3E%3C/svg%3E')] bg-[length:60px_60px]"></div>
+                      </div>
+                    </div>
+                  </div>
                   <div className="flex justify-between items-center p-4 bg-white rounded-lg shadow-sm border border-gray-100">
                     <div>
                       <div className="text-sm text-gray-500">Active Vehicles</div>
@@ -177,6 +210,23 @@ export default function Hero() {
                       ></div>
                     ))}
                   </div>
+
+                  {/* Horizontal auto-scrolling gallery */}
+                  <div className="relative overflow-hidden rounded-lg border border-white/10">
+                    <div className="scroll-x gap-3 p-3">
+                      {Array.from({ length: 12 }).map((_, i) => (
+                        <div key={i} className="w-28 h-16 rounded-md bg-gradient-to-br from-[#00BFFF]/20 to-[#00FFFF]/10 border border-white/10 flex items-center justify-center text-[10px] text-white/70">
+                          IMG {i + 1}
+                        </div>
+                      ))}
+                      {/* duplicate for seamless loop */}
+                      {Array.from({ length: 12 }).map((_, i) => (
+                        <div key={`d-${i}`} className="w-28 h-16 rounded-md bg-gradient-to-br from-[#00BFFF]/20 to-[#00FFFF]/10 border border-white/10 flex items-center justify-center text-[10px] text-white/70">
+                          IMG {i + 1}
+                        </div>
+                      ))}
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -185,6 +235,6 @@ export default function Hero() {
       </div>
 
       <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-white to-transparent"></div>
-    </section>
+    </section >
   );
 }

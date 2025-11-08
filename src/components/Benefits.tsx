@@ -35,7 +35,7 @@ export default function Benefits() {
   const statsRef = useScrollAnimation();
 
   return (
-    <section id="benefits" className="py-24 bg-white">
+    <section id="benefits" className="py-24 bg-white z-20">
       <div className="max-w-7xl mx-auto px-6 lg:px-16">
         <div className="grid lg:grid-cols-2 gap-16 items-center mb-24">
           <motion.div
